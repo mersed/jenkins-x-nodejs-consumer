@@ -3,13 +3,16 @@ require('isomorphic-fetch')
 const getUser = async () => {
     try {
         let response = await fetch('http://localhost:3000/get-user', {
-            method: 'post'
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
         });
-        console.log(response)
+        const jsonResponse = await response.json();
+        console.log(jsonResponse)
     } catch(e) {
         console.log(`Request failed with message:`, e.message)
     }
 }
 
-
-getUser()
+var interval = setInterval(getUser, 3000);
