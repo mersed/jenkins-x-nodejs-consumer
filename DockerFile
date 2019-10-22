@@ -1,0 +1,11 @@
+FROM node:11.10.0-alpine
+RUN export NODE_ENV=development
+
+WORKDIR /opt/jenkins-x-nodejs-consumer
+COPY package.json /opt/jenkins-x-nodejs-consumer
+RUN npm install
+RUN npm install -g nodemon
+
+
+EXPOSE 80
+CMD ["nodemon", "app/index.js"]
