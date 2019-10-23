@@ -4,6 +4,7 @@
   "description": "API consumer example in kubernetes jenkins-x setup",
   "main": "index.js",
   "dependencies": {
+    "config": "^3.2.3",
     "isomorphic-fetch": "^2.2.1"
   },
   "devDependencies": {},
