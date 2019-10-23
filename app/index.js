@@ -4,7 +4,24 @@ process.env['NODE_CONFIG_DIR'] = __dirname + "/config";
 // importing legacy modules
 require('isomorphic-fetch')
 const config = require('config')
+
+// import custom modules
+const sequelizeConnection = require('./sequelize/sequelize').connection
+const Sequelize = require('./sequelize/sequelize').Sequelize
+
+// import models
+const User = require('./sequelize/models/User')
+
+// initializing global variables
 const apiKey = config.get('apiKey')
+
+sequelizeConnection.sync({ force: true })
+    .then(() => {
+        setInterval(getUser, 3000);
+    })
+    .catch(error => {
+        console.log(error)
+    })
 
 const getUser = async () => {
     try {
@@ -19,10 +36,15 @@ const getUser = async () => {
             })
         });
         const jsonResponse = await response.json();
-        console.log(jsonResponse)
+        
+        if(jsonResponse.success) {
+            insertUserIntoDb(jsonResponse.user)
+        }
     } catch(e) {
         console.log(`Request failed with message:`, e.message)
     }
 }
 
-var interval = setInterval(getUser, 3000);
+const insertUserIntoDb = (user) => {
+    User.create(user)
+}

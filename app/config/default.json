@@ -1,3 +1,9 @@
 {
-  "apiKey": "password-32425423nnrlaksdmkfsf"
+  "apiKey": "password-32425423nnrlaksdmkfsf",
+  "database": {
+    "host": "postgres",
+    "db": "jenkinsx",
+    "username": "admin",
+    "password": "password"
+  }
 }
